@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".runsettings" />
+  </Folder>
+  <Project Path="Wagepoint.Tests/Wagepoint.Tests.csproj" Id="4a76a8cc-d1ea-48b6-a82a-e445bbc6e940" DisplayName="Wagepoint.Tests" />
+</Solution>
