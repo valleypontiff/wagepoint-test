@@ -18,7 +18,8 @@ namespace Wagepoint.Tests.Pages
         {
             _page = page;
 
-            // These are not the best selectors, but they work (in English) for now. Ideally, for playwright, we would have data-testid attributes to make tests more robust.
+            // These are not the best selectors, but they work (in English) for now. Ideally, for Playwright, we would have data-testid attributes
+            // to make tests more robust.
             _popUpCloseButton = _page.FrameLocator("[data-test-id=\"interactive-frame\"]").GetByRole(AriaRole.Button, new() { Name = "Close" });
             _numberOfEmployeesInput = _page.GetByRole(AriaRole.Spinbutton, new() { Name = "Number of employees" });
             _paymentFrequencySelect = _page.GetByLabel("Pay frequency");
@@ -30,18 +31,17 @@ namespace Wagepoint.Tests.Pages
         {
             await _page.GotoAsync(Config.Config.BuildUrl("pricing/"));
 
-            // this pop-up seems to always be present, so we'll treat it that way for now
+            // this pop-up seems to always be present, so we'll treat it that way for now. Ideally, we would have a better way to handle this.
+            // I tried some alternatives, but they were not reliable. In the real world, I would want to work with the team to find a better solution.
             await _popUpCloseButton.ClickAsync();
         }
 
-        public async Task<string> CalculateCostPerMonth(string numberOfEmployees, PayFrequency payFrequency)
+        public async Task CalculateCostPerMonth(string numberOfEmployees, PayFrequency payFrequency)
         {
             await _numberOfEmployeesInput.FillAsync(numberOfEmployees);
             await _paymentFrequencySelect.ClickAsync(); // this drop-down requires a click to open before selecting an option
             await _paymentFrequencySelect.SelectOptionAsync(GetPayFrequencyString(payFrequency));
             await _calculateButton.ClickAsync();
-            var costPerMonth = await _costPerMonthText.TextContentAsync();
-            return costPerMonth?.Trim() ?? string.Empty;
         }
 
         private static string GetPayFrequencyString(PayFrequency payFrequency)
@@ -56,6 +56,7 @@ namespace Wagepoint.Tests.Pages
                     return ((System.ComponentModel.DescriptionAttribute)attrs[0]).Description;
                 }
             }
+
             return payFrequency.ToString();
         }
     }

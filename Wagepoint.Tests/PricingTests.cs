@@ -8,8 +8,9 @@ namespace Wagepoint.Tests
     [TestFixture]
     public class PricingTests : TestBase
     {
-        // A single test function to exercise the cost-per-month calculator with a variety of inputs. It's not an exhaustive list of test cases, but it gives
-        // an idea of how I approach automation, and some of tests I would think of
+        // A single test function to exercise the cost-per-month calculator with a variety of inputs. It's not an exhaustive list of test cases, and I don't know
+        // if there are step changes in these formulas that should be tested around, but it gives an idea of how I approach automation, and some of the tests
+        // I would think about
         [TestCase("1", PayFrequency.Weekly, 46.0)]
         [TestCase("10002", PayFrequency.Weekly, 60052.0)]
         [TestCase("1", PayFrequency.BiWeekly, 46.0)]
